@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-mongoose.connect('mongodb://localhost:27017/myApp').then(() => {
+mongoose.connect('mongodb://localhost:27017/altSchool').then(() => {
   console.log('success!');
 });
 const personSchema = new Schema({
@@ -10,9 +10,9 @@ const personSchema = new Schema({
   summary: String,
 });
 
-const PersonModel = mongoose.model('String', stringSchema);
+const PersonModel = mongoose.model('Person', personSchema);
 
-const writeString = function(name, birth, death, summary) {
+const writePerson = function(name, birth, death, summary) {
   const newModel = new PersonModel({ name: name, birth:birth, death:death, summary: summary});
   newModel.save(err => {
     if (err) return err;
@@ -20,4 +20,4 @@ const writeString = function(name, birth, death, summary) {
 };
 
 module.exports.model = PersonModel;
-module.exports.write = writeString;
+module.exports.write = writePerson;

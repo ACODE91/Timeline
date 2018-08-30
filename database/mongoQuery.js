@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const PersonModel = require('./mongoWrite');
 
-mongoose.connect('mongodb://localhost:27017/myApp').then(() => {
+mongoose.connect('mongodb://localhost:27017/altSchool').then(() => {
   console.log('success!');
 });
 
