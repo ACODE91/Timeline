@@ -2,7 +2,7 @@
 
 const express = require('express');
 const logger = require('./logger');
-
+const saved = require('./router');
 const argv = require('./argv');
 const port = require('./port');
 const setup = require('./middlewares/frontendMiddleware');
@@ -20,6 +20,13 @@ const mongoWrite = require('../database/mongoWrite.js');
 // app.use('/api', myApi);
 
 // In production we need to pass these values in instead of relying on webpack
+app.get('/', (req, res, next) => {
+  console.log('from express');
+  next();
+});
+
+app.use('/data', saved);
+
 setup(app, {
   outputPath: resolve(process.cwd(), 'build'),
   publicPath: '/',
