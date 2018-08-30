@@ -13,7 +13,12 @@ const personSchema = new Schema({
 const PersonModel = mongoose.model('Person', personSchema);
 
 const writePerson = function(name, birth, death, summary) {
-  const newModel = new PersonModel({ name: name, birth:birth, death:death, summary: summary});
+  const newModel = new PersonModel({
+    name,
+    birth,
+    death,
+    summary,
+  });
   newModel.save(err => {
     if (err) return err;
   });
