@@ -15,9 +15,6 @@ const Person = styled.div`
 const Container = styled.div`
   border: solid;
   border-width: thin;
-  height: 2000px;
-  width: 1000px;
-  background-color: grey;
 `;
 
 function Timeline(props) {
@@ -56,7 +53,7 @@ function Timeline(props) {
     return result;
   };
 
-  const timelineMatrix = timelineSort(props.people);
+  const timelineMatrix = timelineSort(props.people).reverse();
   //   const list = props.people.map(person => (
   //     <Person>
   //       <div
@@ -82,7 +79,9 @@ function Timeline(props) {
   return (
     <div>
       <Container>
-        <div id="container">{timelineMatrix.map(lane => <Lane items={lane}/>)}</div>
+        <div id="container">
+          {timelineMatrix.map(lane => <Lane items={lane} />)}
+        </div>
       </Container>
     </div>
   );

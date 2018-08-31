@@ -17,15 +17,6 @@ import Footer from 'components/Footer';
 import Input from 'components/Input';
 import Timeline from 'components/Timeline';
 
-const AppWrapper = styled.div`
-  max-width: calc(768px + 16px * 2);
-  margin: 0 auto;
-  display: flex;
-  min-height: 100%;
-  padding: 0 16px;
-  flex-direction: column;
-`;
-
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -37,15 +28,18 @@ export default class App extends Component {
       summary: '',
       hoverSummary: '',
       hoverName: '',
-      lowest: 0,
-      highest: 0,
+      low: 0,
+      high: 0,
     };
 
     axios
       .get('/data')
       .then(response => {
-        console.log(response);
-        this.setState({ list: response.data });
+        response.data.sort((a,b) => { return a.birth - b.birth});
+        let low = response.data[0];
+        response.data.sort((a,b) => { return b.death - a.death});
+        let high = response.data[0]
+        this.setState({ list: response.data, low: low.birth, high: high.death});
       })
       .catch(error => {
         console.log(error);
@@ -82,18 +76,18 @@ export default class App extends Component {
 
   render() {
     return (
-      <AppWrapper>
-        <div>
-          <Input submitFn={this.handleSubmit} />
-          <Timeline
-            people={this.state.list}
-            hoverFn={this.handleHover}
-            hoverOffFn={this.handleHoverOff}
-            currentSummary={this.state.hoverSummary}
-            currentName={this.state.hoverName}
-          />
-        </div>
-      </AppWrapper>
+      <div>
+        <Input submitFn={this.handleSubmit} />
+        <Timeline
+          people={this.state.list}
+          hoverFn={this.handleHover}
+          hoverOffFn={this.handleHoverOff}
+          currentSummary={this.state.hoverSummary}
+          currentName={this.state.hoverName}
+          low={this.low}
+          high={this.high}
+        />
+      </div>
     );
   }
 }
