@@ -1,5 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+//TODO: Dynamically change the CSS of each person's timeline block size
+//with relation to the size of the total lane width and as well as the position
+//by using the "left" CSS property.
 
 const LaneStyle = styled.div`
   height: 27px;

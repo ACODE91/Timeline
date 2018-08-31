@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import Summary from '../Summary/index.js';
 import Lane from '../Lane/index.js';
+//TODO: properly pass down the handle hover functions to the Lane component
+//so that on hover of the timeline block, we can see the person's summary.
 
 const Person = styled.div`
   position: relative;
