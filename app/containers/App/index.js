@@ -35,6 +35,10 @@ export default class App extends Component {
       birth: 0,
       death: 0,
       summary: '',
+      hoverSummary: '',
+      hoverName: '',
+      lowest: 0,
+      highest: 0,
     };
 
     axios
@@ -48,20 +52,32 @@ export default class App extends Component {
       });
   }
 
-  handleSubmit = () => {
-    axios
-      .post('/data', {
-        name: 'Fred',
-        birth: 0,
-        death: 1222,
-        summary: 'testing',
-      })
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+  // handleSubmit = () => {
+  //   axios
+  //     .post('/data', {
+  //       name: 'Fred',
+  //       birth: 0,
+  //       death: 1222,
+  //       summary: 'testing',
+  //     })
+  //     .then(response => {
+  //       console.log(response);
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
+  // };
+
+  handleHover = (summary, name) => {
+    this.state.hoverSummary = summary;
+    this.state.hoverName = name;
+    this.forceUpdate();
+  };
+
+  handleHoverOff = () => {
+    this.state.hoverSummary = '';
+    this.state.hoverName = '';
+    this.forceUpdate();
   };
 
   render() {
@@ -69,7 +85,13 @@ export default class App extends Component {
       <AppWrapper>
         <div>
           <Input submitFn={this.handleSubmit} />
-          <Timeline people={this.state.list}/>
+          <Timeline
+            people={this.state.list}
+            hoverFn={this.handleHover}
+            hoverOffFn={this.handleHoverOff}
+            currentSummary={this.state.hoverSummary}
+            currentName={this.state.hoverName}
+          />
         </div>
       </AppWrapper>
     );
